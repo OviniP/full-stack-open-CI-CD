@@ -1,0 +1,19 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: windows-latest
+    steps:
+      - uses : actions/checkout@v4
+      - usess: actions/setup-node@v4
+        with:
+          node-version: '16'
+      -name: install dependencies
+       run: npm install
+      -name: Check styles
+       run: npm run eslint
