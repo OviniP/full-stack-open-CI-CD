@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  hello_world_ job:
+  hello_world_job:
     runs-on: windows-latest
     steps:
       - name: say hello
