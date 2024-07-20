@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v4  # Separate step for checking out the repository
       - name: Bump version and push tag
         if: ${{ github.event_name == 'push' }}
-        uses: anothrNick/github-tag-action@v1.70.0  # Use the correct version tag
+        uses: anothrNick/github-tag-action@1.70.0  # Use the correct version tag
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
