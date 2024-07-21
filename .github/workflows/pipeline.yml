@@ -19,7 +19,7 @@ jobs:
         run: echo "$COMMIT_MESSAGE"
       - name: test if
         if: ${{COMMIT_MESSAGE == 'true'}}
-         run: echo "COMMIT_MESSAGE true"
+        run: echo "COMMIT_MESSAGE true"
       - name: test if not
         if: ${{COMMIT_MESSAGE != 'true'}}
-         run: echo "COMMIT_MESSAGE not true"
+        run: echo "COMMIT_MESSAGE nottrue"
