@@ -8,6 +8,7 @@ on:
     branches: [main]
     types: [opened, synchronize]
 
+
 jobs:
   context_test_job:
     runs-on: ubuntu-latest
