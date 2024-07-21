@@ -12,7 +12,7 @@ jobs:
   context_test_job:
     runs-on: ubuntu-latest
     env: 
-      COMMIT_MESSAGE: ${{ toJson(github.event.commits.*.message).join(',') }}
+      COMMIT_MESSAGE: ${{ (toJson(github.event.commits.*.message)).join(',') }}
     steps: 
       - uses: actions/checkout@v4
       - name: github context
