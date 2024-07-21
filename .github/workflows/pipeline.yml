@@ -60,4 +60,4 @@ jobs:
       - name: Commit message
         env:
           COMMIT_MESSAGE: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "COMMIT_MESSAGE"
+        run: echo "$COMMIT_MESSAGE"
