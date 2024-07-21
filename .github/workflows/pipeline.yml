@@ -9,55 +9,11 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  simple_deployment_pipeline:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Install dependencies 
-        run: npm install  
-      - name: Check style
-        run: npm run eslint
-      - name: Build
-        run: npm run build
-      - name: Test
-        run: npm test
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npm run test-e2e
-      - name: Trigger deployment
-        if: ${{ github.event_name == 'push' }}
-        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
-
-  tag_release:
-    needs: [simple_deployment_pipeline]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4  # Separate step for checking out the repository
-      - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' }}
-        uses: anothrNick/github-tag-action@1.70.0  # Use the correct version tag
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
-
   context_test_job:
     runs-on: ubuntu-latest
+    env: 
+      COMMIT_MESSAGE: ${{ toJson(github.event.commits.*.message) }}
     steps: 
       - uses: actions/checkout@v4
       - name: github context
-        env: 
-          GITHUB_CONTEXT: ${{tojson(github)}}
-        run: echo "$GITHUB_CONTEXT"
-      - name: commits
-        env: 
-          COMMITS: ${{tojson(github.event.commits)}}
-        run: echo "$COMMITS"
-      - name: Commit message
-        env:
-          COMMIT_MESSAGE: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGE"
