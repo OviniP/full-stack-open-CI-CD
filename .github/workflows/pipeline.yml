@@ -46,15 +46,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
   notifications:
-    needs: [tag_release]
     runs-on: ubuntu-latest
     steps:
-     - name: Discord Webhook Notify Success
-       if: ${{ success() }}
-       uses: rjstone/discord-webhook-notify@v1.0.4
-       with:
-        severity: info
-        text: A new version of pokedex deployed
-        description: to https://full-stack-open-ci-cd.onrender.com by OP
-        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
+      - name: Discord Webhook Notify Success
+        if: ${{ success() }}
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: info
+          text: A new version of pokedex deployed
+          description: to url by OP
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
