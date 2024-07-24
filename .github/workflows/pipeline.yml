@@ -54,5 +54,5 @@ jobs:
         with:
           severity: info
           text: A new version of pokedex deployed
-          description: to url by OP
+          description: This is a custom description.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
