@@ -50,7 +50,7 @@ jobs:
     steps:
       - name: Discord Webhook Notify Success
         if: ${{ success() }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
           text: A new version of pokedex deployed
