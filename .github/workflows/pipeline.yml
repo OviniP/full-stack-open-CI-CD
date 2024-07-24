@@ -48,11 +48,9 @@ jobs:
   notifications:
     runs-on: ubuntu-latest
     steps:
-      - name: Discord Webhook Notify Success
-        if: ${{ success() }}
+      - name: Test Info
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
-          text: A new version of pokedex deployed
-          description: This is a custom description.
+          details: Test succeeded.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
