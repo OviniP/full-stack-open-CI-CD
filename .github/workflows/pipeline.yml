@@ -59,7 +59,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Test succeeded.'
+          args: 'Test OP'
 #  notifications:
  #   runs-on: ubuntu-latest
   #  steps:
