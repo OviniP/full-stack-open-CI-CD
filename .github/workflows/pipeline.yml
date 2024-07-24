@@ -56,7 +56,7 @@ jobs:
     steps:
       - name: Discord Webhook Notify Success
         #if: ${{ success() }}
-        uses: Ilshidur/action-discord@2.0.0
+        uses: Ilshidur/action-discord@master
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           message: |
