@@ -51,6 +51,19 @@ jobs:
           severity: info
           details: Test Succeeded! 1
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  notifications:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord Webhook Notify Success
+        #if: ${{ success() }}
+        uses: Ilshidur/action-discord@2.0.0
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          message: |
+            Test message
+            **Deployment Success!**
+            A new version of pokedex has been deployed to [your site](https://full-stack-open-ci-cd.onrender.com) by OP.
+          username: GitHub Actions
 #  notifications:
  #   runs-on: ubuntu-latest
   #  steps:
