@@ -45,27 +45,22 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-      #- name: Test Success
-      #  uses: rjstone/discord-webhook-notify@v1
-       # with:
-        #  severity: info
-        #  details: Test Succeeded! 1
-        #  webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   notifications:
     runs-on: ubuntu-latest
     steps:
-      - name: Test Success
+      - name: deployment Success
+        if: ${{ success() }}
         uses: rjstone/discord-webhook-notify@v1
         with:
             severity: info
-            details: Test Succeeded OP!
+            text: A new version of pokedex deployed
+            description: to URL by OP
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-#  notifications:
- #   runs-on: ubuntu-latest
-  #  steps:
-   #   - name: Test Info
-    #    uses: rjstone/discord-webhook-notify@v1
-     #   with:
-      #    severity: info
-       #   details: Test succeeded.
-        #  webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: deployment failed
+        if: ${{ !success() }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+            severity: error
+            text: Build failed!
+            description: show the commit link and the person
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
