@@ -45,12 +45,12 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-  notifications:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test Info
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: info
-          details: Test succeeded.
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+#  notifications:
+ #   runs-on: ubuntu-latest
+  #  steps:
+   #   - name: Test Info
+    #    uses: rjstone/discord-webhook-notify@v1
+     #   with:
+      #    severity: info
+       #   details: Test succeeded.
+        #  webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
