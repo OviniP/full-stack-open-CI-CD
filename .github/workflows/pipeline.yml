@@ -49,7 +49,7 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
-          details: Test Succeeded!
+          details: Test Succeeded! 1
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 #  notifications:
  #   runs-on: ubuntu-latest
