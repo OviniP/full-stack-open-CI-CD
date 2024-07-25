@@ -6,7 +6,7 @@ on:
       - main
 
 jobs: 
-  health check:
+  health_check:
     runs-on: ubuntu-latest
     steps: 
       - name: check the url
