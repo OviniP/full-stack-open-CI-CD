@@ -50,18 +50,19 @@ jobs:
     steps:
       - name: deployment Success
         if: ${{ success() }}
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-            severity: info
-            text: A new version of pokedex deployed
-            description: to URL by OP
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Deployment failed
-        if: ${{ !success() }}
         uses: sarisia/actions-status-discord@v1
         with:
             webhook: ${{ secrets.DISCORD_WEBHOOK }}
             nodetail: true
-            content: "Build failed"
-            color: 0xFF0000
-            description: commit [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.triggering_actor }} broke the build.
+            content: "A new version of pokedex deployed"
+            color: 0x90EE90
+            description: to https://full-stack-open-ci-cd.onrender.com/ by ${{ github.triggering_actor }} 
+      #- name: Deployment failed
+        #if: ${{ failure() }}
+        #uses: sarisia/actions-status-discord@v1
+        #with:
+            #webhook: ${{ secrets.DISCORD_WEBHOOK }}
+            #nodetail: true
+            #content: "Build failed"
+            #color: 0xFF0000
+            #description: commit [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.triggering_actor }} broke the build.
