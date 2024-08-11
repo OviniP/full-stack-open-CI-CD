@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: try discord message
-        uses: rjstone/discord-webhook-notify@v1
+        uses: sarisia/actions-status-discord@v1
         with:
-            severity: info
-            details: Test succeeded.
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+            webhook: ${{ secrets.DISCORD_WEBHOOK }}
+            title: "test op"
