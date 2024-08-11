@@ -3,8 +3,7 @@ name: Deployment pipeline
 on:
   push:
     branches:
-      - "main"
-      - "dev"
+      - main
   pull_request:
     branches: [main]
     types: [opened, synchronize]
@@ -34,7 +33,6 @@ jobs:
       - name: Trigger deployment
         if: ${{ github.event_name == 'push' && env.COMMIT_MESSAGE != 'true'}}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
-
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
@@ -47,20 +45,22 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-      - name: Notify Success
-        uses: rjstone/discord-webhook-notify@v1
+  notifications:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deployment Success
         if: ${{ success() }}
+        uses: rjstone/discord-webhook-notify@v1
         with:
             severity: info
             text: A new version of pokedex deployed
-            description: on https://full-stack-open-ci-cd.onrender.com/ by Ovini
+            description: to URL by OP
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Test Failure
+      - name: deployment failed
+        if: ${{ !success() }}
         uses: rjstone/discord-webhook-notify@v1
-        if: ${{ failure() }}
         with:
             severity: error
-            text: Build failed
+            text: Build failed!
+            description: show the commit link and the person
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
- 
