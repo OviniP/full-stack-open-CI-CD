@@ -14,4 +14,11 @@ jobs:
         uses: sarisia/actions-status-discord@v1
         with:
             webhook: ${{ secrets.DISCORD_WEBHOOK }}
-            title: "test op"
+            nodetail: true
+            title: "test  sarisia/actions-status-discord@v1"
+      - name: Discord notification fail
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        with:
+            text: test rjstone/discord-webhook
+            severity: error
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
