@@ -3,7 +3,8 @@ name: Deployment pipeline
 on:
   push:
     branches:
-      - main
+      - "main"
+      - "dev"
   pull_request:
     branches: [main]
     types: [opened, synchronize]
@@ -46,5 +47,20 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+      - name: Notify Success
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ success() }}
+        with:
+            severity: info
+            text: A new version of pokedex deployed
+            description: on https://full-stack-open-ci-cd.onrender.com/ by Ovini
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ failure() }}
+        with:
+            severity: error
+            text: Build failed
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
  
