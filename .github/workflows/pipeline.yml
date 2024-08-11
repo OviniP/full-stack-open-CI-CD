@@ -58,9 +58,10 @@ jobs:
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: deployment failed
         if: ${{ !success() }}
-        uses: rjstone/discord-webhook-notify@v1
+        uses: sarisia/actions-status-discord@v1
         with:
-            severity: error
-            text: Build failed!
-            description: show the commit link and the person
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+            webhook: ${{ secrets.DISCORD_WEBHOOK }}
+            nodetail: true
+            content: "Build failed"
+            color: 0xFF0000
+            description: commit [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.triggering_actor }} broke the build.
