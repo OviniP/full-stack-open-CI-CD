@@ -39,6 +39,9 @@ jobs:
     env: 
       COMMIT_MESSAGE: ${{ github.event.commits.*.message && contains(join(github.event.commits.*.message), '#skip') }}
     steps:
+      - name: checkout
+        if: ${{ github.event_name == 'push'  && env.COMMIT_MESSAGE != 'true'}}
+        uses: actions/checkout@v4
       - name: Bump version and push tag
         if: ${{ github.event_name == 'push'  && env.COMMIT_MESSAGE != 'true'}}
         uses: anothrNick/github-tag-action@1.70.0
@@ -46,7 +49,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
   notifications:
-    needs: [simple_deployment_pipeline]
+    needs: [simple_deployment_pipeline, tag_release]
     runs-on: ubuntu-latest
     steps:
       - name: deployment Success
